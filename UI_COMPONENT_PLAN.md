@@ -1,3 +1,8 @@
-# Manhattan Associates WMS Connector - UI_COMPONENT_PLAN.md
+# Manhattan Associates WMS Connector — UI Component Plan
 
-Standard documentation for Manhattan Associates WMS Connector in Imperal Cloud.
+**Compliance:** UI_INTERFACE_STANDARD.md
+
+## Интерфейс
+- **Левый сайдбар:** Форма подключения на всю ширину контейнера, все инпуты с лейблами и контекстными плейсхолдерами.
+- **Центральная зона:** Карточки статуса подключения, таблица сущностей (склады и зоны хранения (/facilities)), журнал операций.
+- **Модальные окна:** Предупреждения и подтверждения для любых деструктивных или модифицирующих действий.
