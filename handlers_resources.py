@@ -10,7 +10,7 @@ from schemas import (
 from handlers_connection import resolve_client
 
 @chat.function("list_shipments", "List shipments in Manhattan Active WMS.", action_type="read", chain_callable=True, event="manhattan-associates-wms-connector.list_shipments", effects=["read:shipments"], data_model=ShipmentList)
-async def list_shipments(params: ListShipmentParams, ctx) -> ActionResult:
+async def list_shipments(ctx, params: ListShipmentParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         raw_items = await client.list_shipments(limit=params.limit)
@@ -24,7 +24,7 @@ async def list_shipments(params: ListShipmentParams, ctx) -> ActionResult:
         return ActionResult.error(f"Error listing shipments: {e}")
 
 @chat.function("get_shipment", "Get details of one Shipment in Manhattan Active WMS.", action_type="read", chain_callable=True, event="manhattan-associates-wms-connector.get_shipment", effects=["read:shipment"], data_model=ShipmentRecord)
-async def get_shipment(params: GetShipmentParams, ctx) -> ActionResult:
+async def get_shipment(ctx, params: GetShipmentParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         r = await client.get_shipment(params.shipment_id)
@@ -35,7 +35,7 @@ async def get_shipment(params: GetShipmentParams, ctx) -> ActionResult:
         return ActionResult.error(f"Error retrieving Shipment: {e}")
 
 @chat.function("audit_shipment_health", "Audit health of Manhattan Active WMS shipments and connectivity.", action_type="read", chain_callable=True, event="manhattan-associates-wms-connector.audit_shipment_health", effects=["read:audit"], data_model=AuditHealthReport)
-async def audit_shipment_health(params: ConnectionIdParams, ctx) -> ActionResult:
+async def audit_shipment_health(ctx, params: ConnectionIdParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         items = await client.list_shipments(limit=50)
